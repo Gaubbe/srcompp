@@ -3,7 +3,7 @@ project(srcompp)
 
 option(${PROJECT_NAME}_BUILD_SHARED off)
 
-if(${SRCOMPP_BUILD_SHARED})
+if(${${PROJECT_NAME}_BUILD_SHARED})
 	add_compile_definitions(SRCOMPP_EXPORT)
 	add_compile_definitions(SRCOMPP_SHARED)
 endif()
