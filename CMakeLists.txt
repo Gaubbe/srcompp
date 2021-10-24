@@ -5,6 +5,15 @@ if(WIN32)
 	add_compile_definitions(SRCOMPP_WIN)
 endif()
 
+###########
+# OPTIONS #
+###########
+option(srcompp_BUILD_SHARED "Builds as shared library" ON)
+option(srcompp_BUILD_STATIC "Builds as static library" ON)
+
+############################
+# NON-MODIFYABLE VARIABLES #
+############################
 set(${PROJECT_NAME}_PUBLIC_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 ################
@@ -24,12 +33,16 @@ set(${PROJECT_NAME}_SOURCE_FILES
 ##################
 # SHARED LIBRARY #
 ##################
-add_library(${PROJECT_NAME} SHARED ${${PROJECT_NAME}_SOURCE_FILES})
-target_include_directories(${PROJECT_NAME} PUBLIC ${${PROJECT_NAME}_PUBLIC_HEADERS_DIR})
-target_compile_definitions(${PROJECT_NAME} PUBLIC SRCOMPP_SHARED PRIVATE SRCOMPP_EXPORT)
+if(${srcompp_BUILD_SHARED})
+	add_library(${PROJECT_NAME} SHARED ${${PROJECT_NAME}_SOURCE_FILES})
+	target_include_directories(${PROJECT_NAME} PUBLIC ${${PROJECT_NAME}_PUBLIC_HEADERS_DIR})
+	target_compile_definitions(${PROJECT_NAME} PUBLIC SRCOMPP_SHARED PRIVATE SRCOMPP_EXPORT)
+endif()
 
 ##################
 # STATIC LIBRARY #
 ##################
-add_library(${PROJECT_NAME}_static ${${PROJECT_NAME}_SOURCE_FILES})
-target_include_directories(${PROJECT_NAME}_static PUBLIC ${${PROJECT_NAME}_PUBLIC_HEADERS_DIR})
+if(${srcompp_BUILD_STATIC})
+	add_library(${PROJECT_NAME}_static ${${PROJECT_NAME}_SOURCE_FILES})
+	target_include_directories(${PROJECT_NAME}_static PUBLIC ${${PROJECT_NAME}_PUBLIC_HEADERS_DIR})
+endif()
