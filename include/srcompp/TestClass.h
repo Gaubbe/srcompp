@@ -3,5 +3,5 @@
 
 class TestClass {
 public:
-  static SRCOMPP_API void Print();
+  static SRCOMPP_API void Test();
 };
